@@ -5,7 +5,7 @@ const app = express();
 const port = 3000;
 
 app.get('/', async (req, res) => {
-        res.status(200).json({ endpoints: 'api.cryptic.icu/dns/{hostname}, api.cryptic.icu/domain/ssl/{hostname}'});
+        res.status(200).json({ endpoints: 'api.cryptic.icu/dns/{hostname}, api.cryptic.icu/domain/ssl/{hostname},  api.cryptic.icu/webshot/{url)'});
     
 });
 
@@ -26,6 +26,19 @@ app.get('/domain/ssl/:hostname', async (req, res) => {
 
     try {
         const response = await axios.get(`https://networkcalc.com/api/security/certificate/${hostname}`);
+        res.json(response.data);
+    } catch (error) {
+        // Handle errors
+        console.error(error);
+        res.status(500).json({ error: 'An error occurred while processing your request' });
+    }
+});
+
+app.get('/webshot/:hostname', async (req, res) => {
+    const { hostname } = req.params;
+
+    try {
+        const response = await axios.get(`https://image.thum.io/get/width/1000/crop/700/${hostname}`);
         res.json(response.data);
     } catch (error) {
         // Handle errors
