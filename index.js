@@ -38,10 +38,12 @@ app.get('/webshot/:hostname', async (req, res) => {
     const { hostname } = req.params;
 
     try {
-        const response = await axios.get(`https://image.thum.io/get/width/1000/crop/700/${hostname}`);
-        res.json(response.data);
+        const response = await axios.get(`https://image.thum.io/get/width/1000/crop/700/http://${hostname}`, {
+            responseType: 'arraybuffer'
+        });
+        res.setHeader('Content-Type', 'image/png');
+        res.send(response.data);
     } catch (error) {
-        // Handle errors
         console.error(error);
         res.status(500).json({ error: 'An error occurred while processing your request' });
     }
