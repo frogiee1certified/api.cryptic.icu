@@ -13,11 +13,11 @@ app.get('/dns/:hostname', async (req, res) => {
     const { hostname } = req.params;
 
     try {
-        const response = await axios.get(`https://networkcalc.com/api/dns/lookup/${hostname}`);
+        const response = await axios.get(`https://8.8.8.8/resolve?name=${hostname}`);
         res.json(response.data);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'An error occurred while processing your request' });
+        res.status(500).json({ error: 'an error occurred while processing your request' });
     }
 });
 
@@ -29,7 +29,7 @@ app.get('/domain/ssl/:hostname', async (req, res) => {
         res.json(response.data);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'An error occurred while processing your request' });
+        res.status(500).json({ error: 'an error occurred while processing your request' });
     }
 });
 
@@ -44,7 +44,7 @@ app.get('/webshot', async (req, res) => {
         res.send(response.data);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'An error occurred while processing your request' });
+        res.status(500).json({ error: 'an error occurred while processing your request' });
     }
 });
 
@@ -53,5 +53,5 @@ app.use((req, res, next) => {
 });
 
 app.listen(port, () => {
-    console.log(`makeshift API is running on port ${port}`);
+    console.log(`temu API is running on port ${port}`);
 });
